@@ -15,8 +15,8 @@ public class Usuario {
 
     private String nombre, apellido, fechaNac, provincia;
     private Vehiculo miCoche;
-//    private ArrayList<Vehiculo> favoritos= new ArrayList<>(3);
-    private Vehiculo[] favoritos = new Vehiculo[3];
+    private ArrayList<Vehiculo> favoritos= new ArrayList<>(3);
+    
 
     public Usuario(String nombre, String apellido, String fechaNac, String provincia) {
         this.nombre = nombre;
@@ -110,20 +110,9 @@ public class Usuario {
 
     // METODOS EXTRA
     public void addToFavoritos(Vehiculo vehiculo) {
-        if (favoritos.length <= 3) {
-            int emptyIndex = -1;
-            for (int i = 0; i < favoritos.length; i++) {
-                if (favoritos[i] == null) {
-                    emptyIndex = i;
-                    break;
-                }
-            }
-            if (emptyIndex != -1) {
-                favoritos[emptyIndex] = vehiculo;
-            } else {
-                System.out.println("La lista de favoritos está llena");
-            }
-        }
+        if(favoritos.size()<=3){
+            favoritos.add(vehiculo);
+        } else System.out.println("La lista de favoritos está llena");
     }
 
     public String getFavoritos() {
@@ -137,11 +126,14 @@ public class Usuario {
     }
 
     public void delFavorito(int index) {
-        if (index >= 0 && index < favoritos.length) {
-            favoritos[index] = null;
-        }
+        if (index>=0 && index<3) {
+            if(favoritos.get(index)!=null) favoritos.add(index, null); // he preferido implementarlo asi en lugar de usar favoritos.remove(index), asi no me da problemas a la hora de mostrar en pantalla
+        } else System.out.println("Introduzca un indice del 0 al 2");
     }
 
+    
+    
+    
     public String getMiCoche() {
         return miCoche.toString();
     }
